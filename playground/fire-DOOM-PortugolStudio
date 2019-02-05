@@ -1,0 +1,188 @@
+//Código reescrito na linguagem "Portugol" na IDE desenvolvida pela UNIVALI ("Portugol Studio")
+//Jonathan Comin Ribeiro
+
+
+programa
+{
+	inclua biblioteca Graficos
+ --> g	
+	inclua biblioteca Util --> u
+	const inteiro altura = 60
+	const inteiro largura = 60
+	const inteiro pixel = 10
+	const inteiro valorMinimoDecay = 0
+	const inteiro valorMaximoDecay = 3
+	
+	
+funcao moverfogo(inteiro &matriz[][]){
+		inteiro decay
+		para (inteiro linha =0 ; linha<altura;linha++){
+			para (inteiro coluna =0 ; coluna<largura;coluna++){
+				decay = u.sorteia(valorMinimoDecay, valorMaximoDecay)
+				se (nao (linha==altura-1)){
+					se (matriz[linha+1][coluna]>0){
+						se (coluna+decay<largura){
+							matriz[linha][coluna]=matriz[linha+1][coluna+decay]-decay
+						}senao{
+							matriz[linha][coluna]=matriz[linha+1][coluna]-decay
+						}
+					}
+					senao{
+						matriz[linha][coluna]=0	
+					}
+				}
+			}
+			
+		}
+	}
+	
+	funcao inteiro intensidade(inteiro valor){
+		escolha (valor){
+			caso 0:
+				valor = g.criar_cor(7, 6, 5)
+				pare
+			caso 1:
+				valor = g.criar_cor(29, 7, 8)
+				pare
+			caso 2:
+				valor = g.criar_cor(46, 16, 11)
+				pare
+			caso 3:
+				valor = g.criar_cor(66, 20, 10)
+				pare
+			caso 4:
+				valor = g.criar_cor(83, 26, 15)
+				pare
+			caso 5:
+				valor = g.criar_cor(98, 34, 16)
+				pare
+			caso 6:
+				valor = g.criar_cor(111, 37, 18)
+				pare
+			caso 7:
+				valor = g.criar_cor(135, 45, 22)
+				pare
+			caso 8:
+				valor = g.criar_cor(142, 57, 28)
+				pare
+			caso 9:
+				valor = g.criar_cor(162, 72, 35)
+				pare
+			caso 10:
+				valor = g.criar_cor(182, 76, 31)
+				pare
+			caso 11:
+				valor = g.criar_cor(188, 78, 31)
+				pare
+			caso 12:
+				valor = g.criar_cor(210, 88, 32)
+				pare
+			caso 13:
+				valor = g.criar_cor(211, 94, 40)
+				pare
+			caso 14:
+				valor = g.criar_cor(211, 95, 38)
+				pare
+			caso 15:
+				valor = g.criar_cor(204, 101, 40)
+				pare
+			caso 16:
+				valor = g.criar_cor(206, 101, 37)
+				pare
+			caso 17:
+				valor = g.criar_cor(205, 107, 42)
+				pare
+			caso 18:
+				valor = g.criar_cor(198, 114, 42)
+				pare
+			caso 19:
+				valor = g.criar_cor(183, 116, 50)
+				pare
+			caso 20:
+				valor = g.criar_cor(200, 129, 49)
+				pare
+			caso 21:
+				valor = g.criar_cor(202, 137, 52)
+				pare
+			caso 22:
+				valor = g.criar_cor(191, 137, 53)
+				pare
+			caso 23:
+				valor = g.criar_cor(192, 143, 48)
+				pare
+			caso 24:
+				valor = g.criar_cor(194, 152, 55)
+				pare
+			caso 25:
+				valor = g.criar_cor(190, 159, 60)
+				pare
+			caso 26:
+				valor = g.criar_cor(191, 159, 58)
+				pare
+			caso 27:
+				valor = g.criar_cor(188, 170, 72)
+				pare
+			caso 28:
+				valor = g.criar_cor(189, 167, 66)
+				pare
+			caso 29:
+				valor = g.criar_cor(191, 174, 70)
+				pare
+			caso 30:
+				valor = g.criar_cor(185, 177, 80)
+				pare
+			caso 31:
+				valor = g.criar_cor(185, 182, 72)
+				pare
+			caso 32:
+				valor = g.criar_cor(185, 182, 74)
+				pare
+			caso 33:
+				valor = g.criar_cor(207, 206, 123)
+				pare
+			caso 34:
+				valor = g.criar_cor(224, 221, 166)
+				pare
+			caso 35:
+				valor = g.criar_cor(241, 238, 204)
+				pare
+			caso 36:
+				valor = g.criar_cor(238, 234, 236)
+				pare
+			caso contrario:
+				valor = g.criar_cor(0, 0, 0)		
+		}
+		retorne valor
+	}
+	
+	funcao inicializaMatriz(inteiro &matriz[][]){
+		para (inteiro linha = 0 ;linha<altura;linha++){
+			para (inteiro coluna =0 ; coluna<largura;coluna++){
+				se (linha==altura-1){
+					matriz[linha][coluna]=36
+				}senao{
+					matriz[linha][coluna] = 0
+				}
+			}
+		}
+	}
+		
+	funcao inicio(){
+		inteiro matriz[altura][largura]
+		inicializaMatriz(matriz)
+		g.iniciar_modo_grafico(verdadeiro)
+		g.definir_dimensoes_janela(altura*pixel, largura*pixel)
+		enquanto(verdadeiro){
+			para (inteiro linha = 0 ;linha<altura;linha++){
+				para (inteiro coluna =0 ; coluna<largura;coluna++){
+					inteiro cor = intensidade(matriz[linha][coluna])
+					g.definir_cor(cor)
+					g.desenhar_retangulo(coluna*pixel, linha*pixel, pixel, pixel, falso, verdadeiro)
+				}
+			}
+			g.renderizar()
+			u.aguarde(60)
+			moverfogo(matriz)
+		}
+	}
+}
